@@ -1,11 +1,12 @@
 import { Snapshot } from '../snapshot/snapshot';
-import { IProp } from './prop';
+import { Prop } from './prop';
 
-export class Blink implements IProp {
+export class Blink extends Prop {
   constructor(
     private snapshot1: Snapshot,
     private snapshot2: Snapshot,
   ) {
+    super();
     setInterval(() => {
       this.flag = !this.flag;
     }, 1000);

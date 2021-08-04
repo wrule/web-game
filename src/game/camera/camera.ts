@@ -1,12 +1,12 @@
 import { I2D } from '../2d/2d';
-import { IProp } from '../prop/prop';
+import { Prop } from '../prop/prop';
 
 export class Camera {
   constructor(
     private i2d: I2D,
   ) { }
 
-  private curProp!: IProp;
+  private curProp!: Prop;
   private curFps!: number;
   private interval!: number;
 
@@ -18,7 +18,7 @@ export class Camera {
   }
 
   public Recording(
-    prop: IProp,
+    prop: Prop,
     fps: number,
   ) {
     this.curProp = prop;

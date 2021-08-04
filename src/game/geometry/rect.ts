@@ -1,38 +1,65 @@
+import { IPoint } from './point';
 
-export interface IRect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-export class Rect implements IRect {
+export class Rect {
   constructor(
-    private rect: IRect,
-  ) { }
-
-  public get x() {
-    return this.rect.x;
+    point1: IPoint,
+    point2: IPoint,
+  ) {
+    this.left = point1.x;
+    this.right = point2.x;
+    if (point1.x > point2.x) {
+      this.left = point2.x;
+      this.right = point1.x;
+    }
+    this.top = point1.y;
+    this.bottom = point2.y;
+    if (point1.y > point2.y) {
+      this.top = point2.y;
+      this.bottom = point1.y;
+    }
   }
 
-  public get y() {
-    return this.rect.y;
+  private top: number;
+  private bottom: number;
+  private left: number;
+  private right: number;
+
+  public get Top() {
+    return this.top;
   }
 
-  public get width() {
-    return this.rect.width;
+  public get Bottom() {
+    return this.bottom;
   }
 
-  public get height() {
-    return this.rect.height;
+  public get Left() {
+    return this.left;
   }
 
-  public get x2() {
-    return this.rect.x + this.rect.width - 1;
+  public get Right() {
+    return this.right;
   }
 
-  public get y2() {
-    return this.rect.y + this.rect.height - 1;
+  public get Width() {
+    return this.right - this.left + 1;
+  }
+
+  public get Height() {
+    return this.bottom - this.top + 1;
+  }
+
+  public get PointLeftTop(): IPoint {
+    return {
+      x: this.left,
+      y: this.top,
+    }
+  }
+
+  public get PointRightBottom(): IPoint {
+    return {
+      x: this.right,
+      y: this.bottom,
+    };
   }
 
   /**
@@ -40,13 +67,12 @@ export class Rect implements IRect {
    * @param rect 目标矩形
    * @returns 是否相交
    */
-  public IsOverlap(rect: IRect) {
-    const dstRect = new Rect(rect);
+  public IsOverlap(rect: Rect) {
     return !(
-      dstRect.y2 < this.y ||
-      dstRect.y > this.y2 ||
-      dstRect.x2 < this.x ||
-      dstRect.x > this.x2
+      rect.bottom < this.top ||
+      rect.top > this.bottom ||
+      rect.right < this.left ||
+      rect.left > this.right
     );
   }
 }

@@ -30,15 +30,19 @@ export default class ViewHome extends Vue {
     const texture2 = new Texture(this.spriteImageBitmap, 96, 96, 32, 32);
     const snapshot1 = new Snapshot(0, 0, texture1);
     const snapshot2 = new Snapshot(0, 0, texture2);
-    const blink = new Blink(new Rect({x: 0, y: 0}, {x: 32, y: 32}), snapshot1, snapshot2);
+    const blink = new Blink(
+      new Rect({ x: 0, y: 0 }, { x: 31, y: 31 }),
+      snapshot1,
+      snapshot2,
+    );
 
     const canvas2d = new Canvas2D(this.ctx, this.elCanvas.width, this.elCanvas.height);
     const camera = new Camera(canvas2d, {
-      width: 32,
-      height: 32,
+      width: 640,
+      height: 400,
     });
 
-    // camera.LookAtPoint({ x: 0, y: 0 });
+    // camera.LookAtPoint({ x: 15, y: 15 });
     camera.LookAtProp(blink);
 
     camera.Recording(blink, 30);
@@ -48,8 +52,8 @@ export default class ViewHome extends Vue {
     return (
       <div class={style.view}>
         <canvas
-          width="32"
-          height="32"
+          width="640"
+          height="400"
           class={style.canvas}
         />
         <img

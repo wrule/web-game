@@ -44,8 +44,10 @@ export class Camera {
   private render() {
     this.i2d.DrawSnapshot(
       this.curProp.Snapshots.map((snapshot) => new Snapshot(
-        snapshot.x - this.CurLookPoint.x + this.leftSpace,
-        snapshot.y - this.CurLookPoint.y + this.topSpace,
+        {
+          x: snapshot.point.x - this.CurLookPoint.x + this.leftSpace,
+          y: snapshot.point.y - this.CurLookPoint.y + this.topSpace,
+        },
         snapshot.texture,
       ))
     );

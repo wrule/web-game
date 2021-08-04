@@ -49,42 +49,47 @@ export class Camera {
 
   private lookAtType: ELookAtType = ELookAtType.AtPoint;
 
-  private curLookProp!: Prop;
-  private curLookPropOffsetX: number = 0;
-  private curLookPropOffsetY: number = 0;
-
+  private lookProp!: Prop;
+  private lookPropOffsetX: number = 0;
+  private lookPropOffsetY: number = 0;
   public LookAtProp(
     prop: Prop,
     offsetX: number = 0,
     offsetY: number = 0,
   ) {
-    this.curLookProp = prop;
-    this.curLookPropOffsetX = offsetX;
-    this.curLookPropOffsetY = offsetY;
+    this.lookProp = prop;
+    this.lookPropOffsetX = offsetX;
+    this.lookPropOffsetY = offsetY;
     this.lookAtType = ELookAtType.AtProp;
   }
 
-  private curLookPoint: IPoint = { x: 0, y: 0 };
+  private lookPoint: IPoint = { x: 0, y: 0 };
   public LookAtPoint(
     point: IPoint,
   ) {
-    this.curLookPoint = point;
+    this.lookPoint = point;
     this.lookAtType = ELookAtType.AtPoint;
   }
 
+  /**
+   * 当前摄像机聚焦的坐标点
+   */
   public get CurLookPoint(): IPoint {
-    if (this.lookAtType === ELookAtType.AtPoint) {
-      return this.curLookPoint;
-    } else {
-      return {
-        x: this.curLookProp.Scope.Left + this.curLookPropOffsetX,
-        y: this.curLookProp.Scope.Top + this.curLookPropOffsetY,
-      };
+    switch (this.lookAtType) {
+      case ELookAtType.AtProp:
+        return {
+          x: this.lookProp.Scope.Left + this.lookPropOffsetX,
+          y: this.lookProp.Scope.Top + this.lookPropOffsetY,
+        };
+      case ELookAtType.AtPoint:
+        return this.lookPoint;
+      default:
+        throw new Error('this.lookAtType的枚举值非法');
     }
   }
 
   /**
-   * 摄像机的可视区域
+   * 摄像机的拍摄区域
    */
   public get Scope() {
     const point1 = {

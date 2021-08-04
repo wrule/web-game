@@ -15,6 +15,14 @@ export class Texture {
     this.dHeight = dHeight !== undefined ?
       dHeight :
       this.sHeight;
+    if (
+      this.sWidth < 1 ||
+      this.sHeight < 1 ||
+      this.dWidth < 1 ||
+      this.dHeight < 1
+    ) {
+      throw new Error('不可创建内容为空的贴图');
+    }
   }
 
   public readonly dWidth: number;

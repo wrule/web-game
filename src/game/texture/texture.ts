@@ -6,14 +6,17 @@ export class Texture {
     public readonly sy: number,
     public readonly sWidth: number,
     public readonly sHeight: number,
-    public readonly dWidth?: number,
-    public readonly dHeight?: number,
+    dWidth?: number,
+    dHeight?: number,
   ) {
-    this.dWidth = this.dWidth !== undefined ?
-      this.dWidth :
+    this.dWidth = dWidth !== undefined ?
+      dWidth :
       this.sWidth;
-    this.dHeight = this.dHeight !== undefined ?
-      this.dHeight :
+    this.dHeight = dHeight !== undefined ?
+      dHeight :
       this.sHeight;
   }
+
+  public readonly dWidth: number;
+  public readonly dHeight: number;
 }

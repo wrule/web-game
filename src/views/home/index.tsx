@@ -4,6 +4,9 @@ import style from './index.module.scss';
 import spriteImg from '@/assets/0.png';
 import { Texture } from '@/game/texture/texture';
 import { Snapshot } from '@/game/snapshot/snapshot';
+import { Blink } from '@/game/prop/blink';
+import { Canvas2D } from '@/game/2d/canvas2d';
+import { Camera } from '@/game/camera/camera';
 
 @Component
 export default class ViewHome extends Vue {
@@ -22,19 +25,16 @@ export default class ViewHome extends Vue {
     this.elSpriteImage = this.$el.querySelector('img') as HTMLImageElement;
     this.spriteImageBitmap = await createImageBitmap(this.elSpriteImage);
     
-    const texture = new Texture(this.spriteImageBitmap, 0, 0, 64, 64);
-    const snapshot = new Snapshot(32, 0, texture);
-    this.ctx.drawImage(
-      this.spriteImageBitmap,
-      snapshot.texture.sx,
-      snapshot.texture.sy,
-      snapshot.texture.sWidth,
-      snapshot.texture.sHeight,
-      snapshot.x,
-      snapshot.y,
-      snapshot.texture.dWidth,
-      snapshot.texture.dHeight,
-    );
+    const texture1 = new Texture(this.spriteImageBitmap, 96, 64, 32, 32);
+    const texture2 = new Texture(this.spriteImageBitmap, 96, 96, 32, 32);
+    const snapshot1 = new Snapshot(32, 0, texture1);
+    const snapshot2 = new Snapshot(32, 0, texture2);
+    const blink = new Blink(snapshot1, snapshot2);
+
+    const canvas2d = new Canvas2D(this.ctx, this.elCanvas.width, this.elCanvas.height);
+    const camera = new Camera(canvas2d);
+
+    camera.Recording(blink, 30);
   }
 
   public render(): VNode {

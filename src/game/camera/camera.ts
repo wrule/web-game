@@ -57,8 +57,8 @@ export class Camera {
       return this.curLookPoint;
     } else {
       return {
-        x: this.curLookProp.Scope.x + this.curLookPropOffsetX,
-        y: this.curLookProp.Scope.y + this.curLookPropOffsetY,
+        x: this.curLookProp.Scope.Left + this.curLookPropOffsetX,
+        y: this.curLookProp.Scope.Top + this.curLookPropOffsetY,
       };
     }
   }

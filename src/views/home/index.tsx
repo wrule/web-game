@@ -7,6 +7,7 @@ import { Snapshot } from '@/game/snapshot/snapshot';
 import { Blink } from '@/game/prop/blink';
 import { Canvas2D } from '@/game/2d/canvas2d';
 import { Camera } from '@/game/camera/camera';
+import { Rect } from '@/game/geometry/rect';
 
 @Component
 export default class ViewHome extends Vue {
@@ -29,7 +30,7 @@ export default class ViewHome extends Vue {
     const texture2 = new Texture(this.spriteImageBitmap, 96, 96, 32, 32);
     const snapshot1 = new Snapshot(32, 0, texture1);
     const snapshot2 = new Snapshot(32, 0, texture2);
-    const blink = new Blink({ x: 0, y: 0, width: 32, height: 32 }, snapshot1, snapshot2);
+    const blink = new Blink(new Rect({x: 0, y: 0}, {x: 32, y: 32}), snapshot1, snapshot2);
 
     const canvas2d = new Canvas2D(this.ctx, this.elCanvas.width, this.elCanvas.height);
     const camera = new Camera(canvas2d, {

@@ -6,13 +6,7 @@ import style from './app.module.scss';
 export default class App extends Vue {
   public render(): VNode {
     return (
-      <div class={style.app}>
-        <div class={style.nav}>
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link>
-        </div>
-        <router-view/>
-      </div>
+      <router-view class={style.app}/>
     );
   }
 }

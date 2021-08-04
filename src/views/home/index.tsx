@@ -25,8 +25,8 @@ export default class ViewHome extends Vue {
       0,
       32,
       32,
-      0,
-      0,
+      10,
+      10,
       32,
       32,
     );

@@ -1,10 +1,10 @@
-import { Rect } from '../rect/rect';
+import { IRect } from '../geometry/rect';
 import { Snapshot } from '../snapshot/snapshot';
 import { Prop } from './prop';
 
 export class Blink extends Prop {
   constructor(
-    scope: Rect,
+    scope: IRect,
     private snapshot1: Snapshot,
     private snapshot2: Snapshot,
   ) {

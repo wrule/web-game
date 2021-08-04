@@ -1,9 +1,9 @@
-import { Rect } from '../rect/rect';
+import { IRect } from '../geometry/rect';
 import { Snapshot } from '../snapshot/snapshot';
 
 export abstract class Prop {
   constructor(
-    private scope: Rect,
+    private scope: IRect,
   ) { }
 
   public get Scope() {

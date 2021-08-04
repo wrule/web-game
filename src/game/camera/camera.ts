@@ -5,6 +5,7 @@ import { IPoint } from '../geometry/point';
 import { Rect } from '../geometry/rect';
 import { ISize } from '../geometry/size';
 import { Prop } from '../prop/prop';
+import { Snapshot } from '../snapshot/snapshot';
 
 export enum ELookAtType {
   AtProp,
@@ -41,7 +42,13 @@ export class Camera {
   private interval!: number;
 
   private render() {
-    this.i2d.DrawSnapshot(this.curProp.Snapshots);
+    this.i2d.DrawSnapshot(
+      this.curProp.Snapshots.map((snapshot) => new Snapshot(
+        snapshot.x - this.CurLookPoint.x + this.leftSpace,
+        snapshot.y - this.CurLookPoint.y + this.topSpace,
+        snapshot.texture,
+      ))
+    );
     setTimeout(() => {
       this.render();
     }, this.interval);

@@ -11,7 +11,7 @@ export class Blink extends Prop {
     super(scope);
     setInterval(() => {
       this.flag = !this.flag;
-    }, 1000);
+    }, 1000000);
   }
 
   private flag = true;

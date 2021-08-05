@@ -73,13 +73,10 @@ export class Camera {
   /**
    * 当前摄像机聚焦的坐标点
    */
-  public get CurLookPoint(): IPoint {
+  public get CurrentLookPoint(): IPoint {
     switch (this.lookAtType) {
       case ELookAtType.AtProp:
-        return {
-          x: this.lookProp.Scope.Left,
-          y: this.lookProp.Scope.Top,
-        };
+        return this.lookProp.Scope.PointCenter;
       case ELookAtType.AtPoint:
         return this.lookPoint;
       default:
@@ -92,12 +89,12 @@ export class Camera {
    */
   public get Scope() {
     const point1 = {
-      x: this.CurLookPoint.x - this.leftSpace,
-      y: this.CurLookPoint.y - this.topSpace,
+      x: this.CurrentLookPoint.x - this.leftSpace,
+      y: this.CurrentLookPoint.y - this.topSpace,
     };
     const point2 = {
-      x: this.CurLookPoint.x + this.rightSpace,
-      y: this.CurLookPoint.y + this.bottomSpace,
+      x: this.CurrentLookPoint.x + this.rightSpace,
+      y: this.CurrentLookPoint.y + this.bottomSpace,
     };
     return new Rect(point1, point2);
   }

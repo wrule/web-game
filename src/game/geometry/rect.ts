@@ -62,6 +62,13 @@ export class Rect {
     };
   }
 
+  public get PointCenter(): IPoint {
+    return {
+      x: this.left + this.Width / 2,
+      y: this.top + this.Height / 2,
+    };
+  }
+
   /**
    * 判断本矩形与目标矩形是否相交
    * @param rect 目标矩形

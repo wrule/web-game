@@ -9,6 +9,7 @@ import { Canvas2D } from '@/game/2d/canvas2d';
 import { Camera } from '@/game/camera/camera';
 import { Rect } from '@/game/geometry/rect';
 import { TestMap } from '@/game/prop/testMap';
+import { EDirection } from '@/game/prop/prop';
 
 @Component
 export default class ViewHome extends Vue {
@@ -59,6 +60,10 @@ export default class ViewHome extends Vue {
     console.log(camera.CurrentLookPoint);
 
     camera.Recording(testMap, 30);
+
+    // setInterval(() => {
+    //   testMap.Move(EDirection.North, 1);
+    // }, 100);
   }
 
   public render(): VNode {

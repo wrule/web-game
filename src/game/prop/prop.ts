@@ -1,6 +1,13 @@
 import { Rect } from '../geometry/rect';
 import { Snapshot } from '../snapshot/snapshot';
 
+export enum EDirection {
+  North,
+  South,
+  West,
+  East,
+}
+
 export abstract class Prop {
   constructor(
     private scope: Rect,
@@ -24,5 +31,39 @@ export abstract class Prop {
       },
       snapshot.texture,
     ));
+  }
+
+  public Move(
+    direction: EDirection,
+    distance: number,
+  ) {
+    switch (direction) {
+      case EDirection.North: {
+        this.scope = new Rect(
+          { x: this.scope.PointLeftTop.x, y: this.scope.PointLeftTop.y - distance },
+          { x: this.scope.PointRightBottom.x, y: this.scope.PointRightBottom.y - distance },
+        )
+      } break;
+      case EDirection.South: {
+        this.scope = new Rect(
+          { x: this.scope.PointLeftTop.x, y: this.scope.PointLeftTop.y + distance },
+          { x: this.scope.PointRightBottom.x, y: this.scope.PointRightBottom.y + distance },
+        )
+      } break;
+      case EDirection.West: {
+        this.scope = new Rect(
+          { x: this.scope.PointLeftTop.x - distance, y: this.scope.PointLeftTop.y },
+          { x: this.scope.PointRightBottom.x - distance, y: this.scope.PointRightBottom.y },
+        )
+      } break;
+      case EDirection.East: {
+        this.scope = new Rect(
+          { x: this.scope.PointLeftTop.x + distance, y: this.scope.PointLeftTop.y },
+          { x: this.scope.PointRightBottom.x + distance, y: this.scope.PointRightBottom.y },
+        )
+      } break;
+      default:
+        throw new Error('');
+    }
   }
 }

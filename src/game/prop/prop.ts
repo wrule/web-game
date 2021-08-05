@@ -10,14 +10,14 @@ export abstract class Prop {
     return this.scope;
   }
 
+  abstract mySnapshots: Snapshot[];
+
   /**
    * 道具的快照列表
-   * 此快照列表可以被摄像机采集后按顺序渲染
+   * 此快照列表可以被摄像机采集后按顺序直接渲染
    */
-  abstract RelativeSnapshots: Snapshot[];
-
   public get Snapshots() {
-    return this.RelativeSnapshots.map((snapshot) => new Snapshot(
+    return this.mySnapshots.map((snapshot) => new Snapshot(
       {
         x: this.Scope.Left + snapshot.Scope.Left,
         y: this.Scope.Top + snapshot.Scope.Top,

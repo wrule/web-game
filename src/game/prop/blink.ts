@@ -16,7 +16,7 @@ export class Blink extends Prop {
 
   private flag = true;
 
-  public get RelativeSnapshots() {
+  public get mySnapshots() {
     return this.flag ? [this.snapshot1] : [this.snapshot2];
   }
 }

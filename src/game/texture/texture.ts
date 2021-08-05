@@ -1,7 +1,5 @@
 /**
  * 贴图类
- * 此类代表一个有意义的贴图
- * 贴图尺寸必须大于等于1
  */
 export class Texture {
   constructor(
@@ -20,12 +18,12 @@ export class Texture {
       dHeight :
       this.sHeight;
     if (
-      this.sWidth < 1 ||
-      this.sHeight < 1 ||
-      this.dWidth < 1 ||
-      this.dHeight < 1
+      this.sWidth < 0 ||
+      this.sHeight < 0 ||
+      this.dWidth < 0 ||
+      this.dHeight < 0
     ) {
-      throw new Error('贴图尺寸必须大于等于1');
+      throw new Error('贴图的尺寸不能为负');
     }
   }
 

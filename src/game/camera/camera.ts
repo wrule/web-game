@@ -1,12 +1,9 @@
 /* eslint-disable */
 
 import { I2D } from '../2d/2d';
-import { IOffset } from '../geometry/offset';
 import { IPoint } from '../geometry/point';
-import { Rect } from '../geometry/rect';
 import { ISize } from '../geometry/size';
 import { Prop } from '../prop/prop';
-import { Snapshot } from '../snapshot/snapshot';
 
 export enum ELookAtType {
   AtProp,
@@ -82,21 +79,6 @@ export class Camera {
       default:
         throw new Error('this.lookAtType的枚举值非法');
     }
-  }
-
-  /**
-   * 摄像机的拍摄区域
-   */
-  public get Scope() {
-    const point1 = {
-      x: this.CurrentLookPoint.x - this.leftSpace,
-      y: this.CurrentLookPoint.y - this.topSpace,
-    };
-    const point2 = {
-      x: this.CurrentLookPoint.x + this.rightSpace,
-      y: this.CurrentLookPoint.y + this.bottomSpace,
-    };
-    return new Rect(point1, point2);
   }
 
   public Recording(

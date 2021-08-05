@@ -41,11 +41,11 @@ export class Rect {
   }
 
   public get Width() {
-    return this.right - this.left + 1;
+    return this.right - this.left;
   }
 
   public get Height() {
-    return this.bottom - this.top + 1;
+    return this.bottom - this.top;
   }
 
   public get PointLeftTop(): IPoint {
@@ -69,10 +69,10 @@ export class Rect {
    */
   public IsOverlap(rect: Rect) {
     return !(
-      rect.bottom < this.top ||
-      rect.top > this.bottom ||
-      rect.right < this.left ||
-      rect.left > this.right
+      rect.bottom <= this.top ||
+      rect.top >= this.bottom ||
+      rect.right <= this.left ||
+      rect.left >= this.right
     );
   }
 }

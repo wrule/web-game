@@ -40,13 +40,17 @@ export class Camera {
   private curFps!: number;
   private interval!: number;
 
+  private transform(point: IPoint): IPoint {
+    return {
+      x: point.x - this.CurrentLookPoint.x + this.pictureSize.width / 2,
+      y: point.y - this.CurrentLookPoint.y + this.pictureSize.height / 2,
+    };
+  }
+
   private render() {
     this.i2d.DrawSnapshot(
       this.curProp.Snapshots.map((snapshot) => new Snapshot(
-        {
-          x: snapshot.point.x - this.CurrentLookPoint.x + this.pictureSize.width / 2,
-          y: snapshot.point.y - this.CurrentLookPoint.y + this.pictureSize.height / 2,
-        },
+        this.transform(snapshot.point),
         snapshot.texture,
       ))
     );

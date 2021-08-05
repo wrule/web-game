@@ -4,6 +4,7 @@ import { I2D } from '../2d/2d';
 import { IPoint } from '../geometry/point';
 import { ISize } from '../geometry/size';
 import { Prop } from '../prop/prop';
+import { Snapshot } from '../snapshot/snapshot';
 
 export enum ELookAtType {
   AtProp,
@@ -13,7 +14,7 @@ export enum ELookAtType {
 export class Camera {
   constructor(
     private i2d: I2D,
-    pictureSize: ISize,
+    private pictureSize: ISize,
   ) {
     // 计算焦点四周空间
     let horizontalSpace = pictureSize.width - 1;
@@ -41,7 +42,13 @@ export class Camera {
 
   private render() {
     this.i2d.DrawSnapshot(
-      this.curProp.Snapshots
+      this.curProp.Snapshots.map((snapshot) => new Snapshot(
+        {
+          x: snapshot.point.x - this.CurrentLookPoint.x + this.pictureSize.width / 2,
+          y: snapshot.point.y - this.CurrentLookPoint.y + this.pictureSize.height / 2,
+        },
+        snapshot.texture,
+      ))
     );
     setTimeout(() => {
       this.render();

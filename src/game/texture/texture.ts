@@ -1,4 +1,7 @@
-
+/**
+ * 贴图类
+ * 此类代表最基本的一个有意义的贴图
+ */
 export class Texture {
   constructor(
     public readonly imageBitmap: ImageBitmap,

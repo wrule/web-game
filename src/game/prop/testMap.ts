@@ -34,7 +34,7 @@ export class TestMap extends Prop {
 
   private snapshots: Snapshot[] = [];
 
-  public get mySnapshots() {
+  public get MySnapshots() {
     return this.snapshots;
   }
 }

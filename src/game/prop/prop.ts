@@ -11,23 +11,50 @@ export enum EDirection {
 export abstract class Prop {
   constructor(
     private scope: Rect,
+    private name: string = '',
+    private children: Prop[] = [],
+    private parent?: Prop,
   ) { }
 
   public get Scope() {
     return this.scope;
   }
 
-  abstract mySnapshots: Snapshot[];
+  public get Name() {
+    return this.name;
+  }
+
+  public get Children() {
+    return this.children;
+  }
+
+  public get Parent() {
+    return this.parent;
+  }
+
+  abstract MySnapshots: Snapshot[];
 
   /**
-   * 道具的快照列表
-   * 此快照列表可以被摄像机采集后按顺序直接渲染
+   * 内部快照列表
    */
-  public get Snapshots() {
-    return this.mySnapshots.map((snapshot) => new Snapshot(
+  public get InnerSnapshots(): Snapshot[] {
+    const result: Snapshot[] = [];
+    result.push(...this.MySnapshots);
+    this.children.forEach((child) => {
+      result.push(...child.OuterSnapshots);
+    });
+    return result;
+  }
+
+  /**
+   * 外部快照列表
+   * 相机摄取此快照列表并且按顺序渲染图像
+   */
+  public get OuterSnapshots() {
+    return this.InnerSnapshots.map((snapshot) => new Snapshot(
       {
-        x: this.Scope.Left + snapshot.Scope.Left,
-        y: this.Scope.Top + snapshot.Scope.Top,
+        x: this.scope.Left + snapshot.Scope.Left,
+        y: this.scope.Top + snapshot.Scope.Top,
       },
       snapshot.texture,
     ));

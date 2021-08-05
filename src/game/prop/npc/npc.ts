@@ -11,7 +11,7 @@ export class Npc extends Prop {
     super(scope);
   }
 
-  public get mySnapshots() {
+  public get MySnapshots() {
     return [
       new Snapshot(
         this.Scope.PointLeftTop,

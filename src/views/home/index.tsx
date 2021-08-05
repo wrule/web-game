@@ -8,6 +8,7 @@ import { Blink } from '@/game/prop/blink';
 import { Canvas2D } from '@/game/2d/canvas2d';
 import { Camera } from '@/game/camera/camera';
 import { Rect } from '@/game/geometry/rect';
+import { TestMap } from '@/game/prop/testMap';
 
 @Component
 export default class ViewHome extends Vue {
@@ -28,6 +29,10 @@ export default class ViewHome extends Vue {
     
     const texture1 = new Texture(this.spriteImageBitmap, 96, 64, 32, 32);
     const texture2 = new Texture(this.spriteImageBitmap, 96, 96, 32, 32);
+    
+    const lawn = new Texture(this.spriteImageBitmap, 0, 0, 32, 32);
+    const bush = new Texture(this.spriteImageBitmap, 0, 32, 32, 32);
+
     const snapshot1 = new Snapshot({ x: 0, y: 0 }, texture1);
     const snapshot2 = new Snapshot({ x: 0, y: 0 }, texture1);
     const blink = new Blink(
@@ -36,25 +41,32 @@ export default class ViewHome extends Vue {
       snapshot2,
     );
 
+    const testMap = new TestMap(
+      { x: 0, y: 0 },
+      { width: 38, height: 20, },
+      lawn,
+      bush,
+    )
+
     const canvas2d = new Canvas2D(this.ctx, this.elCanvas.width, this.elCanvas.height);
     const camera = new Camera(canvas2d, {
-      width: 34,
-      height: 34,
+      width: 640,
+      height: 400,
     });
 
-    // camera.LookAtPoint({ x: 15, y: 15 });
-    camera.LookAtProp(blink);
+    camera.LookAtPoint({ x: 0, y: 0 });
+    // camera.LookAtProp(testMap);
     console.log(camera.CurrentLookPoint);
 
-    camera.Recording(blink, 30);
+    camera.Recording(testMap, 30);
   }
 
   public render(): VNode {
     return (
       <div class={style.view}>
         <canvas
-          width="34"
-          height="34"
+          width="640"
+          height="400"
           class={style.canvas}
         />
         <img

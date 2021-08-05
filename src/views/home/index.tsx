@@ -2,6 +2,7 @@ import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator';
 import { VNode } from 'vue';
 import style from './index.module.scss';
 import spriteImg from '@/assets/0.png';
+import actorImg from '@/assets/actor.png';
 import { Texture } from '@/game/texture/texture';
 import { Snapshot } from '@/game/snapshot/snapshot';
 import { Blink } from '@/game/prop/blink';
@@ -75,8 +76,10 @@ export default class ViewHome extends Vue {
           class={style.canvas}
         />
         <img
-          class={style.image}
           src={spriteImg}
+        />
+        <img
+          src={actorImg}
         />
       </div>
     );

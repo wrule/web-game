@@ -28,8 +28,8 @@ export default class ViewHome extends Vue {
     
     const texture1 = new Texture(this.spriteImageBitmap, 96, 64, 32, 32);
     const texture2 = new Texture(this.spriteImageBitmap, 96, 96, 32, 32);
-    const snapshot1 = new Snapshot({ x: 0, y: 0 }, texture1);
-    const snapshot2 = new Snapshot({ x: 0, y: 0 }, texture2);
+    const snapshot1 = new Snapshot({ x: 0.5, y: 0 }, texture1);
+    const snapshot2 = new Snapshot({ x: 0, y: 0 }, texture1);
     const blink = new Blink(
       new Rect({ x: 0, y: 0 }, { x: 31, y: 31 }),
       snapshot1,

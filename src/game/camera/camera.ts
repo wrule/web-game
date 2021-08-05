@@ -63,14 +63,10 @@ export class Camera {
   }
 
   private lookProp!: Prop;
-  private lookPropOffset: IOffset = { offsetX: 0, offsetY: 0 };
   public LookAtProp(
     prop: Prop,
-    offset: IOffset,
   ) {
     this.lookProp = prop;
-    this.lookPropOffset.offsetX = offset.offsetX;
-    this.lookPropOffset.offsetY = offset.offsetY;
     this.lookAtType = ELookAtType.AtProp;
   }
 
@@ -81,8 +77,8 @@ export class Camera {
     switch (this.lookAtType) {
       case ELookAtType.AtProp:
         return {
-          x: this.lookProp.Scope.Left + this.lookPropOffset.offsetX,
-          y: this.lookProp.Scope.Top + this.lookPropOffset.offsetY,
+          x: this.lookProp.Scope.Left,
+          y: this.lookProp.Scope.Top,
         };
       case ELookAtType.AtPoint:
         return this.lookPoint;

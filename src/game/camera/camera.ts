@@ -48,6 +48,11 @@ export class Camera {
   }
 
   private render() {
+    console.log(
+      this.CurrentLookPoint,
+      this.curProp.Scope.PointCenter,
+      this.curProp.OuterSnapshots[0].point,
+    );
     this.i2d.DrawSnapshot(
       this.curProp.OuterSnapshots.map((snapshot) => new Snapshot(
         this.transform(snapshot.point),

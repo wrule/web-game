@@ -87,7 +87,7 @@ export default class ViewHome extends Vue {
 
     setInterval(() => {
       actor.Move(EDirection.South, 1);
-    }, 100);
+    }, 1000);
   }
 
   public render(): VNode {

@@ -14,7 +14,11 @@ export abstract class Prop {
     private name: string = '',
     private children: Prop[] = [],
     private parent?: Prop,
-  ) { }
+  ) {
+    this.children.forEach((child) => {
+      child.SetParent(this);
+    });
+  }
 
   public get Scope() {
     return this.scope;
@@ -30,6 +34,14 @@ export abstract class Prop {
 
   public get Parent() {
     return this.parent;
+  }
+
+  public Add(prop: Prop) {
+    this.children.push(prop);
+  }
+
+  public SetParent(prop: Prop | undefined) {
+    this.parent = prop;
   }
 
   abstract MySnapshots: Snapshot[];
@@ -59,6 +71,8 @@ export abstract class Prop {
       snapshot.texture,
     ));
   }
+
+
 
   public Move(
     direction: EDirection,

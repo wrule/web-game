@@ -11,6 +11,7 @@ import { Camera } from '@/game/camera/camera';
 import { Rect } from '@/game/geometry/rect';
 import { TestMap } from '@/game/prop/testMap';
 import { EDirection } from '@/game/prop/prop';
+import { Npc } from '@/game/prop/npc/npc';
 
 @Component
 export default class ViewHome extends Vue {
@@ -71,16 +72,22 @@ export default class ViewHome extends Vue {
       }
     }
 
+    const actor = new Npc(
+      new Rect({ x: 0, y: 0 }, { x: 32, y: 48 }),
+      walkTexture[0][0],
+    );
 
-    camera.LookAtPoint({ x: 0, y: 0 });
-    // camera.LookAtProp(testMap);
+    testMap.Add(actor);
+
+    // camera.LookAtPoint({ x: 0, y: 0 });
+    camera.LookAtProp(actor);
     console.log(camera.CurrentLookPoint);
 
     camera.Recording(testMap, 30);
 
-    // setInterval(() => {
-    //   testMap.Move(EDirection.North, 1);
-    // }, 100);
+    setInterval(() => {
+      actor.Move(EDirection.South, 1);
+    }, 1000);
   }
 
   public render(): VNode {

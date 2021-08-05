@@ -48,14 +48,16 @@ export class Camera {
   }
 
   private render() {
-    console.log(
-      this.CurrentLookPoint,
-      this.curProp.Scope.PointCenter,
-      this.curProp.OuterSnapshots[0].point,
-    );
+    // console.log(
+    //   this.CurrentLookPoint,
+    //   this.curProp.Scope.PointCenter,
+    //   this.curProp.OuterSnapshots[0].Scope.PointLeftTop,
+    //   this.transform(this.curProp.OuterSnapshots[0].Scope.PointLeftTop),
+    // );
+    console.log('1> ', this.curProp.Scope.PointLeftTop)
     this.i2d.DrawSnapshot(
       this.curProp.OuterSnapshots.map((snapshot) => new Snapshot(
-        this.transform(snapshot.point),
+        this.transform(snapshot.Scope.PointLeftTop),
         snapshot.texture,
       ))
     );

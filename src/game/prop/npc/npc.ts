@@ -9,14 +9,20 @@ export class Npc extends Prop {
     private texture: Texture,
   ) {
     super(scope);
+    this.snapshot = new Snapshot(
+      {
+        x: this.Scope.PointLeftTop.x,
+        y: this.Scope.PointLeftTop.y,
+      },
+      this.texture,
+    );
   }
+
+  private snapshot!: Snapshot;
 
   public get MySnapshots() {
     return [
-      new Snapshot(
-        this.Scope.PointLeftTop,
-        this.texture,
-      )
+      this.snapshot,
     ];
   }
 }

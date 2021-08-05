@@ -25,10 +25,10 @@ export class Canvas2D implements I2D {
         snapshot.texture.sy,
         snapshot.texture.sWidth,
         snapshot.texture.sHeight,
-        snapshot.point.x,
-        snapshot.point.y,
-        snapshot.texture.dWidth,
-        snapshot.texture.dHeight,
+        snapshot.Scope.Left,
+        snapshot.Scope.Top,
+        snapshot.Scope.Width,
+        snapshot.Scope.Height,
       );
     });
   }

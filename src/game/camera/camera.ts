@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { I2D } from '../2d/2d';
+import { IOffset } from '../geometry/offset';
 import { IPoint } from '../geometry/point';
 import { Rect } from '../geometry/rect';
 import { ISize } from '../geometry/size';
@@ -52,26 +53,25 @@ export class Camera {
 
   private lookAtType: ELookAtType = ELookAtType.AtPoint;
 
-  private lookProp!: Prop;
-  private lookPropOffsetX: number = 0;
-  private lookPropOffsetY: number = 0;
-  public LookAtProp(
-    prop: Prop,
-    offsetX: number = 0,
-    offsetY: number = 0,
-  ) {
-    this.lookProp = prop;
-    this.lookPropOffsetX = offsetX;
-    this.lookPropOffsetY = offsetY;
-    this.lookAtType = ELookAtType.AtProp;
-  }
-
   private lookPoint: IPoint = { x: 0, y: 0 };
   public LookAtPoint(
     point: IPoint,
   ) {
-    this.lookPoint = point;
+    this.lookPoint.x = point.x;
+    this.lookPoint.y = point.y;
     this.lookAtType = ELookAtType.AtPoint;
+  }
+
+  private lookProp!: Prop;
+  private lookPropOffset: IOffset = { offsetX: 0, offsetY: 0 };
+  public LookAtProp(
+    prop: Prop,
+    offset: IOffset,
+  ) {
+    this.lookProp = prop;
+    this.lookPropOffset.offsetX = offset.offsetX;
+    this.lookPropOffset.offsetY = offset.offsetY;
+    this.lookAtType = ELookAtType.AtProp;
   }
 
   /**
@@ -81,8 +81,8 @@ export class Camera {
     switch (this.lookAtType) {
       case ELookAtType.AtProp:
         return {
-          x: this.lookProp.Scope.Left + this.lookPropOffsetX,
-          y: this.lookProp.Scope.Top + this.lookPropOffsetY,
+          x: this.lookProp.Scope.Left + this.lookPropOffset.offsetX,
+          y: this.lookProp.Scope.Top + this.lookPropOffset.offsetY,
         };
       case ELookAtType.AtPoint:
         return this.lookPoint;

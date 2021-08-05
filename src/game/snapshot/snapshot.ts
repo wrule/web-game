@@ -20,8 +20,8 @@ export class Snapshot {
     return new Rect(
       this.point,
       {
-        x: this.point.x + this.texture.dWidth - 1,
-        y: this.point.y + this.texture.dHeight - 1,
+        x: this.point.x + this.texture.dWidth,
+        y: this.point.y + this.texture.dHeight,
       },
     );
   }

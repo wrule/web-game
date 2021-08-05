@@ -23,26 +23,27 @@ export default class ViewHome extends Vue {
 
   private spriteImageBitmap!: ImageBitmap;
 
+  private async queryImageBitmap(selector: string): Promise<ImageBitmap> {
+    const elImage = this.$el.querySelector(selector) as HTMLImageElement;
+    if (elImage) {
+      const imageBitmap = await createImageBitmap(elImage);
+      if (imageBitmap) {
+        return imageBitmap;
+      }
+      throw new Error('无法创建ImageBitmap');
+    }
+    throw new Error('查找不到img元素');
+  }
+
   public async mounted() {
     this.elCanvas = this.$el.querySelector('canvas') as HTMLCanvasElement;
     this.ctx = this.elCanvas.getContext('2d') as CanvasRenderingContext2D;
-    this.elSpriteImage = this.$el.querySelector('img') as HTMLImageElement;
-    this.spriteImageBitmap = await createImageBitmap(this.elSpriteImage);
     
-    const texture1 = new Texture(this.spriteImageBitmap, 96, 64, 32, 32);
-    const texture2 = new Texture(this.spriteImageBitmap, 96, 96, 32, 32);
+    this.spriteImageBitmap = await this.queryImageBitmap('.sprite');
+    const actorImageBitmap = await this.queryImageBitmap('.actor');
     
     const lawn = new Texture(this.spriteImageBitmap, 0, 0, 32, 32);
     const bush = new Texture(this.spriteImageBitmap, 0, 32, 32, 32);
-
-    const snapshot1 = new Snapshot({ x: 0, y: 0 }, texture1);
-    const snapshot2 = new Snapshot({ x: 0, y: 0 }, texture1);
-    const blink = new Blink(
-      new Rect({ x: 0, y: 0 }, { x: 32, y: 32 }),
-      snapshot1,
-      snapshot2,
-    );
-
     const testMap = new TestMap(
       { x: 0, y: 0 },
       { width: 38, height: 20, },
@@ -55,6 +56,21 @@ export default class ViewHome extends Vue {
       width: 640,
       height: 400,
     });
+
+    const walkTexture: Texture[][] = [];
+    for (let y = 0; y < 4; ++y) {
+      walkTexture[y] = [];
+      for (let x = 0; x < 4; ++x) {
+        walkTexture[y][x] = new Texture(
+          actorImageBitmap,
+          x * 32,
+          y * 48,
+          32,
+          48,
+        )
+      }
+    }
+
 
     camera.LookAtPoint({ x: 0, y: 0 });
     // camera.LookAtProp(testMap);
@@ -76,9 +92,11 @@ export default class ViewHome extends Vue {
           class={style.canvas}
         />
         <img
+          class="sprite"
           src={spriteImg}
         />
         <img
+          class="actor"
           src={actorImg}
         />
       </div>

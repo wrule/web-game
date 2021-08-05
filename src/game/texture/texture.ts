@@ -16,12 +16,12 @@ export class Texture {
       dHeight :
       this.sHeight;
     if (
-      this.sWidth < 1 ||
-      this.sHeight < 1 ||
-      this.dWidth < 1 ||
-      this.dHeight < 1
+      this.sWidth < 0 ||
+      this.sHeight < 0 ||
+      this.dWidth < 0 ||
+      this.dHeight < 0
     ) {
-      throw new Error('不可创建内容为空的贴图');
+      throw new Error('贴图尺寸为负');
     }
   }
 

@@ -83,11 +83,11 @@ export default class ViewHome extends Vue {
     camera.LookAtProp(actor);
     console.log(camera.CurrentLookPoint);
 
-    camera.Recording(actor, 30);
+    camera.Recording(testMap, 30);
 
     setInterval(() => {
       actor.Move(EDirection.South, 1);
-    }, 1000);
+    }, 100);
   }
 
   public render(): VNode {

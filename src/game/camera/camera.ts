@@ -2,23 +2,17 @@
 
 import { I2D } from '../2d/2d';
 import { IPoint } from '../geometry/point';
-import { ISize } from '../geometry/size';
 import { Prop } from '../prop/prop';
 import { Snapshot } from '../snapshot/snapshot';
-
-export enum ELookAtType {
-  AtProp,
-  AtPoint
-}
 
 export class Camera {
   constructor(
     private i2d: I2D,
   ) { }
 
-  private curProp!: Prop;
-  private curFps!: number;
-  private interval!: number;
+  private currentProp!: Prop;
+  private currentFps!: number;
+  private currentInterval!: number;
 
   private transform(point: IPoint): IPoint {
     return {
@@ -60,12 +54,10 @@ export class Camera {
     }
   }
 
-  public TakePhoto(
-    prop: Prop,
-  ): I2D {
+  private takePhoto() {
     this.i2d.Clear();
     this.i2d.DrawSnapshot(
-      this.curProp.OuterSnapshots.map((snapshot) => new Snapshot(
+      this.currentProp.OuterSnapshots.map((snapshot) => new Snapshot(
         this.transform(snapshot.Scope.PointLeftTop),
         snapshot.texture,
       ))
@@ -73,15 +65,35 @@ export class Camera {
     return this.i2d;
   }
 
+  public TakePhoto(
+    prop: Prop,
+  ): I2D {
+    this.currentProp = prop;
+    return this.takePhoto();
+  }
+
+  private takeVideoTimer = - 1;
+
+  private takeVideo() {
+    this.takePhoto();
+    this.takeVideoTimer = setTimeout(() => {
+      this.takeVideo();
+    }, this.currentInterval);
+  }
+
   public TakeVideo(
     prop: Prop,
     fps: number,
   ) {
-    this.curProp = prop;
-    this.curFps = fps;
-    this.interval = 1000 / this.curFps;
-    setInterval(() => {
-      this.TakePhoto(prop);
-    }, this.interval);
+    this.currentProp = prop;
+    this.currentFps = fps;
+    this.currentInterval = 1000 / this.currentFps;
+    clearTimeout(this.takeVideoTimer);
+    this.takeVideo();
   }
+}
+
+export enum ELookAtType {
+  AtProp,
+  AtPoint
 }

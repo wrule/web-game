@@ -57,10 +57,10 @@ export class Rect {
   }
 
   public get PointCenter(): Point {
-    return new Point(
-      this.left + this.Width / 2,
-      this.top + this.Height / 2,
-    );
+    return this.PointLeftTop.Move({
+      offsetX: this.Width / 2,
+      offsetY: this.Height / 2,
+    });
   }
 
   /**

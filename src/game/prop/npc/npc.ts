@@ -11,10 +11,7 @@ export class Npc extends Prop {
   ) {
     super(scope);
     this.snapshot = new Snapshot(
-      new Point(
-        this.Scope.PointLeftTop.x,
-        this.Scope.PointLeftTop.y,
-      ),
+      this.Scope.PointLeftTop.Move(),
       this.texture,
     );
   }

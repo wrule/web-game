@@ -99,7 +99,7 @@ export default class ViewHome extends Vue {
     camera.LookAtProp(actor);
     console.log(camera.CurrentLookPoint);
 
-    camera.TakeVideo(testMap, 200);
+    camera.TakeVideo(testMap, 30);
 
     // setInterval(() => {
     //   actor.Walk(ENpcWalkDirection.South);

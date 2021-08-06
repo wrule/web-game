@@ -21,14 +21,30 @@ export class Camera {
     return this.currentProp;
   }
 
-  private currentFps = 30;
+  private idealFps = 30;
 
   /**
-   * 当前每秒帧数
+   * 理想的每秒帧数
+   */
+  public get IdealFps() {
+    return this.idealFps;
+  }
+
+  private currentFps = 0;
+
+  /**
+   * 当前实际的每秒帧数
    */
   public get CurrentFps() {
     return this.currentFps;
   }
+
+  /**
+   * 帧数计数器
+   */
+  private fpsCounter = 0;
+
+  private fpsStartTime = 0;
 
   private currentInterval!: number;
 
@@ -121,29 +137,34 @@ export class Camera {
   ) {
     clearTimeout(this.takeVideoTimer);
     this.currentProp = prop;
-    this.currentFps = fps;
-    this.currentInterval = 1000 / this.currentFps;
+    this.idealFps = fps;
+    this.currentInterval = 1000 / this.idealFps;
+    this.fpsCounter = 0;
+    this.fpsStartTime = Number(new Date());
     this.takeVideo(callback);
   }
-
-  private count = 0;
-  private oldTime = 0;
 
   private takeVideo(
     callback?: (i2d: I2D) => void,
   ) {
-    const newTime = Number(new Date());
-    if (newTime - this.oldTime >= 1000) {
-      console.log(this.count);
-      this.oldTime = newTime;
-      this.count = 0;
-    }
     const photo = this.takePhoto();
     if (callback) {
       callback(photo);
     }
-    this.count++;
     this.takeVideoTimer = setTimeout(() => {
+      this.fpsCounter++;
+      const fpsTimeSpan = Number(new Date()) - this.fpsStartTime;
+      if (fpsTimeSpan >= 1000) {
+        console.log(
+          this.fpsCounter,
+          fpsTimeSpan / this.fpsCounter,
+          fpsTimeSpan / this.fpsCounter - (1000 / this.idealFps)
+        );
+        this.currentInterval -= fpsTimeSpan / this.fpsCounter - (1000 / this.idealFps);
+        // this.currentInterval = fpsTimeSpan / this.fpsCounter - this.currentInterval;
+        this.fpsCounter = 0;
+        this.fpsStartTime = Number(new Date());
+      }
       this.takeVideo(callback);
     }, this.currentInterval);
   }

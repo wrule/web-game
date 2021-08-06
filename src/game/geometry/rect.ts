@@ -1,59 +1,76 @@
+/* eslint-disable */
+
+import { Geometry } from './geometry';
+import { IOffset } from './offset';
 import { Point } from './point';
 
-export class Rect {
+export class Rect extends Geometry<Rect> {
   constructor(
     point1: Point,
     point2: Point,
   ) {
-    this.left = point1.x;
-    this.right = point2.x;
+    super();
+    let left = point1.x;
+    let right = point2.x;
     if (point1.x > point2.x) {
-      this.left = point2.x;
-      this.right = point1.x;
+      left = point2.x;
+      right = point1.x;
     }
-    this.top = point1.y;
-    this.bottom = point2.y;
+    let top = point1.y;
+    let bottom = point2.y;
     if (point1.y > point2.y) {
-      this.top = point2.y;
-      this.bottom = point1.y;
+      top = point2.y;
+      bottom = point1.y;
     }
+    this.pointLeftTop = new Point(left, top);
+    this.pointRightBottom = new Point(right, bottom);
   }
 
-  private top: number;
-  private bottom: number;
-  private left: number;
-  private right: number;
+  public Move(offset: IOffset) {
+    this.pointLeftTop.Move(offset);
+    this.pointRightBottom.Move(offset);
+  }
+
+  public Cast(offset?: IOffset): Rect {
+    return new Rect(
+      this.pointLeftTop.Cast(offset),
+      this.pointRightBottom.Cast(offset),
+    );
+  }
+
+  private pointLeftTop!: Point;
+  private pointRightBottom!: Point;
 
   public get Top() {
-    return this.top;
+    return this.pointLeftTop.y;
   }
 
   public get Bottom() {
-    return this.bottom;
+    return this.pointRightBottom.y;
   }
 
   public get Left() {
-    return this.left;
+    return this.pointLeftTop.x;
   }
 
   public get Right() {
-    return this.right;
+    return this.pointRightBottom.x;
   }
 
   public get Width() {
-    return this.right - this.left;
+    return this.Right - this.Left;
   }
 
   public get Height() {
-    return this.bottom - this.top;
+    return this.Bottom - this.Top;
   }
 
   public get PointLeftTop(): Point {
-    return new Point(this.left, this.top);
+    return this.pointLeftTop;
   }
 
   public get PointRightBottom(): Point {
-    return new Point(this.right, this.bottom);
+    return this.pointRightBottom;
   }
 
   public get PointCenter(): Point {
@@ -70,10 +87,10 @@ export class Rect {
    */
   public IsOverlap(rect: Rect) {
     return !(
-      rect.bottom <= this.top ||
-      rect.top >= this.bottom ||
-      rect.right <= this.left ||
-      rect.left >= this.right
+      rect.Bottom <= this.Top ||
+      rect.Top >= this.Bottom ||
+      rect.Right <= this.Left ||
+      rect.Left >= this.Right
     );
   }
 }

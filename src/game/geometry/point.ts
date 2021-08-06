@@ -1,18 +1,24 @@
-import { IOffset } from "./offset";
+import { Geometry } from './geometry';
+import { IOffset } from './offset';
 
-export class Point {
+export class Point extends Geometry {
   constructor(
     public x: number,
     public y: number,
-  ) { }
+  ) {
+    super();
+  }
 
-  public Move(offset?: IOffset) {
-    let x = this.x;
-    let y = this.y;
+  public Move(offset: IOffset) {
+    this.x += offset.offsetX;
+    this.y += offset.offsetY;
+  }
+
+  public Cast(offset?: IOffset) {
+    const result = new Point(this.x, this.y);
     if (offset) {
-      x += offset.offsetX;
-      y += offset.offsetY;
+      result.Move(offset);
     }
-    return new Point(x, y);
+    return result;
   }
 }

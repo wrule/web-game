@@ -57,7 +57,7 @@ export class Rect {
   }
 
   public get PointCenter(): Point {
-    return this.PointLeftTop.Move({
+    return this.PointLeftTop.Cast({
       offsetX: this.Width / 2,
       offsetY: this.Height / 2,
     });

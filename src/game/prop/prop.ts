@@ -82,16 +82,7 @@ export abstract class Prop {
   ) {
     switch (direction) {
       case EDirection.South: {
-        this.scope = new Rect(
-          new Point(
-            this.scope.PointLeftTop.x,
-            this.scope.PointLeftTop.y + distance,
-          ),
-          new Point(
-            this.scope.PointRightBottom.x,
-            this.scope.PointRightBottom.y + distance,
-          ),
-        )
+        this.scope.MoveDown(direction);
       } break;
       default:
         throw new Error('');

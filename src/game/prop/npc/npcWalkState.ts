@@ -6,22 +6,26 @@ export class NpcWalkState {
     private textureMap: Map<ENpcWalkDirection, Texture[]>,
     private direction: ENpcWalkDirection = ENpcWalkDirection.South,
     private posture: number = 0,
-  ) { }
+  ) {
+    if (
+      this.textureMap.size < 1 ||
+      Array.from(this.textureMap.values())
+        .some((textureList) => textureList.length < 1)
+    ) {
+      throw new Error('');
+    }
+  }
 
   public Walk(direction: ENpcWalkDirection) {
     if (direction === this.direction) {
       this.posture++;
-      const textureList = this.textureMap.get(this.direction);
-      if (textureList) {
-        if (this.posture > textureList.length - 1) {
-          this.posture = 0;
-        }
+      if (this.posture > this.CurrentTextureList.length - 1) {
+        this.posture = 0;
       }
-      throw new Error('');
     } else {
       this.posture = 0;
+      this.direction = direction;
     }
-    this.direction = direction;
   }
 
   public get CurrentTextureList() {
@@ -29,7 +33,7 @@ export class NpcWalkState {
     if (result) {
       return result;
     }
-    throw new Error('');
+    return Array.from(this.textureMap.values())[0];
   }
 
   public get CurrentTexture() {

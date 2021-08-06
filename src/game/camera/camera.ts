@@ -1,9 +1,8 @@
-/* eslint-disable */
-
 import { I2D } from '../2d/2d';
 import { IPoint } from '../geometry/point';
 import { Prop } from '../prop/prop';
 import { Snapshot } from '../snapshot/snapshot';
+import { ELookAtType } from './lookAtType';
 
 export class Camera {
   constructor(
@@ -21,7 +20,7 @@ export class Camera {
     };
   }
 
-  private lookAtType: ELookAtType = ELookAtType.AtPoint;
+  private lookAtType: ELookAtType = ELookAtType.LookAtPoint;
 
   private lookPoint: IPoint = { x: 0, y: 0 };
   public LookAtPoint(
@@ -29,7 +28,7 @@ export class Camera {
   ) {
     this.lookPoint.x = point.x;
     this.lookPoint.y = point.y;
-    this.lookAtType = ELookAtType.AtPoint;
+    this.lookAtType = ELookAtType.LookAtPoint;
   }
 
   private lookProp!: Prop;
@@ -37,7 +36,7 @@ export class Camera {
     prop: Prop,
   ) {
     this.lookProp = prop;
-    this.lookAtType = ELookAtType.AtProp;
+    this.lookAtType = ELookAtType.LookAtProp;
   }
 
   /**
@@ -45,9 +44,9 @@ export class Camera {
    */
   public get CurrentLookPoint(): IPoint {
     switch (this.lookAtType) {
-      case ELookAtType.AtProp:
+      case ELookAtType.LookAtProp:
         return this.lookProp.Scope.PointCenter;
-      case ELookAtType.AtPoint:
+      case ELookAtType.LookAtPoint:
         return this.lookPoint;
       default:
         throw new Error('ELookAtType类型的枚举值非法');
@@ -100,7 +99,7 @@ export class Camera {
    */
   public TakeVideo(
     prop: Prop,
-    fps: number = 30,
+    fps = 30,
     callback?: (i2d: I2D) => void,
   ) {
     clearTimeout(this.takeVideoTimer);
@@ -109,9 +108,4 @@ export class Camera {
     this.currentInterval = 1000 / this.currentFps;
     this.takeVideo(callback);
   }
-}
-
-export enum ELookAtType {
-  AtProp,
-  AtPoint
 }

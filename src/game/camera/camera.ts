@@ -50,7 +50,7 @@ export class Camera {
       case ELookAtType.AtPoint:
         return this.lookPoint;
       default:
-        throw new Error('this.lookAtType的枚举值非法');
+        throw new Error('ELookAtType类型的枚举值非法');
     }
   }
 
@@ -65,31 +65,49 @@ export class Camera {
     return this.i2d;
   }
 
+  /**
+   * 拍摄照片
+   * @param prop 目标道具
+   * @returns 内部I2D类型的图像
+   */
   public TakePhoto(
     prop: Prop,
   ): I2D {
+    clearTimeout(this.takeVideoTimer);
     this.currentProp = prop;
     return this.takePhoto();
   }
 
   private takeVideoTimer = - 1;
 
-  private takeVideo() {
-    this.takePhoto();
+  private takeVideo(
+    callback?: (i2d: I2D) => void,
+  ) {
+    const photo = this.takePhoto();
+    if (callback) {
+      callback(photo);
+    }
     this.takeVideoTimer = setTimeout(() => {
-      this.takeVideo();
+      this.takeVideo(callback);
     }, this.currentInterval);
   }
 
+  /**
+   * 拍摄视频
+   * @param prop 目标道具
+   * @param fps 理想帧数
+   * @param callback 帧回调函数
+   */
   public TakeVideo(
     prop: Prop,
-    fps: number,
+    fps: number = 30,
+    callback?: (i2d: I2D) => void,
   ) {
+    clearTimeout(this.takeVideoTimer);
     this.currentProp = prop;
     this.currentFps = fps;
     this.currentInterval = 1000 / this.currentFps;
-    clearTimeout(this.takeVideoTimer);
-    this.takeVideo();
+    this.takeVideo(callback);
   }
 }
 

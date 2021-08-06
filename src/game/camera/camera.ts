@@ -126,13 +126,23 @@ export class Camera {
     this.takeVideo(callback);
   }
 
+  private count = 0;
+  private oldTime = 0;
+
   private takeVideo(
     callback?: (i2d: I2D) => void,
   ) {
+    const newTime = Number(new Date());
+    if (newTime - this.oldTime >= 1000) {
+      console.log(this.count);
+      this.oldTime = newTime;
+      this.count = 0;
+    }
     const photo = this.takePhoto();
     if (callback) {
       callback(photo);
     }
+    this.count++;
     this.takeVideoTimer = setTimeout(() => {
       this.takeVideo(callback);
     }, this.currentInterval);

@@ -50,7 +50,7 @@ export default class ViewHome extends Vue {
     const bush = new Texture(this.spriteImageBitmap, 0, 32, 32, 32);
     const testMap = new TestMap(
       new Point(0, 0),
-      { width: 38, height: 20, },
+      { width: 20, height: 15, },
       lawn,
       bush,
     )
@@ -99,7 +99,7 @@ export default class ViewHome extends Vue {
     camera.LookAtProp(actor);
     console.log(camera.CurrentLookPoint);
 
-    camera.TakeVideo(testMap);
+    camera.TakeVideo(testMap, 200);
 
     // setInterval(() => {
     //   actor.Walk(ENpcWalkDirection.South);

@@ -16,8 +16,7 @@ export class Canvas2D implements I2D {
     return this.height;
   }
 
-  DrawSnapshot(snapshots: Snapshot[]) {
-    this.ctx.clearRect(0, 0, this.width, this.height);
+  public DrawSnapshot(snapshots: Snapshot[]) {
     snapshots.forEach((snapshot) => {
       this.ctx.drawImage(
         snapshot.texture.imageBitmap,
@@ -31,5 +30,9 @@ export class Canvas2D implements I2D {
         snapshot.Scope.Height,
       );
     });
+  }
+
+  public Clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
   }
 }

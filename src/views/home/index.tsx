@@ -53,10 +53,7 @@ export default class ViewHome extends Vue {
     )
 
     const canvas2d = new Canvas2D(this.ctx, this.elCanvas.width, this.elCanvas.height);
-    const camera = new Camera(canvas2d, {
-      width: 640,
-      height: 400,
-    });
+    const camera = new Camera(canvas2d);
 
     const walkTexture: Texture[][] = [];
     for (let y = 0; y < 4; ++y) {
@@ -83,11 +80,11 @@ export default class ViewHome extends Vue {
     camera.LookAtProp(actor);
     console.log(camera.CurrentLookPoint);
 
-    camera.Recording(testMap, 30);
+    camera.TakeVideo(testMap, 30);
 
     setInterval(() => {
       actor.Move(EDirection.South, 1);
-    }, 100);
+    }, 10);
   }
 
   public render(): VNode {

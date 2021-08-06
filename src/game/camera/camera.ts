@@ -75,6 +75,37 @@ export class Camera {
     }
   }
 
+  /**
+   * 拍摄照片
+   * @param prop 目标道具
+   * @returns 内部I2D类型的图像
+   */
+  public TakePhoto(
+    prop: Prop,
+  ): I2D {
+    clearTimeout(this.takeVideoTimer);
+    this.currentProp = prop;
+    return this.takePhoto();
+  }
+
+  private takePhoto() {
+    this.i2d.Clear();
+    this.i2d.DrawSnapshot(
+      this.currentProp.OuterSnapshots.map((snapshot) => new Snapshot(
+        this.transform(snapshot.Scope.PointLeftTop),
+        snapshot.texture,
+      ))
+    );
+    return this.i2d;
+  }
+
+  private transform(point: IPoint): IPoint {
+    return {
+      x: point.x - this.CurrentLookPoint.x + this.i2d.Width / 2,
+      y: point.y - this.CurrentLookPoint.y + this.i2d.Height / 2,
+    };
+  }
+
   private takeVideoTimer = - 1;
 
   /**
@@ -105,36 +136,5 @@ export class Camera {
     this.takeVideoTimer = setTimeout(() => {
       this.takeVideo(callback);
     }, this.currentInterval);
-  }
-
-  /**
-   * 拍摄照片
-   * @param prop 目标道具
-   * @returns 内部I2D类型的图像
-   */
-  public TakePhoto(
-    prop: Prop,
-  ): I2D {
-    clearTimeout(this.takeVideoTimer);
-    this.currentProp = prop;
-    return this.takePhoto();
-  }
-
-  private takePhoto() {
-    this.i2d.Clear();
-    this.i2d.DrawSnapshot(
-      this.currentProp.OuterSnapshots.map((snapshot) => new Snapshot(
-        this.transform(snapshot.Scope.PointLeftTop),
-        snapshot.texture,
-      ))
-    );
-    return this.i2d;
-  }
-
-  private transform(point: IPoint): IPoint {
-    return {
-      x: point.x - this.CurrentLookPoint.x + this.i2d.Width / 2,
-      y: point.y - this.CurrentLookPoint.y + this.i2d.Height / 2,
-    };
   }
 }

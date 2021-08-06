@@ -64,7 +64,6 @@ export abstract class Prop {
    * 相机摄取此快照列表并且按顺序渲染图像
    */
   public get OuterSnapshots() {
-    console.log('2> ', this.MySnapshots[0].Scope.PointLeftTop);
     return this.InnerSnapshots.map((snapshot) => new Snapshot(
       new Point(
         this.scope.Left + snapshot.Scope.Left,
@@ -72,20 +71,5 @@ export abstract class Prop {
       ),
       snapshot.texture,
     ));
-  }
-
-
-
-  public Move(
-    direction: EDirection,
-    distance: number,
-  ) {
-    switch (direction) {
-      case EDirection.South: {
-        this.scope.MoveDown(direction);
-      } break;
-      default:
-        throw new Error('');
-    }
   }
 }

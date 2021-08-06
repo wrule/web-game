@@ -84,7 +84,7 @@ export default class ViewHome extends Vue {
     camera.TakeVideo(testMap);
 
     setInterval(() => {
-      actor.Move(EDirection.South, 1);
+      actor.Scope.MoveRight(1);
     }, 100);
   }
 

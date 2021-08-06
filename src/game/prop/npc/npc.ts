@@ -1,3 +1,4 @@
+import { Point } from '@/game/geometry/point';
 import { Rect } from '@/game/geometry/rect';
 import { Snapshot } from '@/game/snapshot/snapshot';
 import { Texture } from '@/game/texture/texture';
@@ -10,10 +11,10 @@ export class Npc extends Prop {
   ) {
     super(scope);
     this.snapshot = new Snapshot(
-      {
-        x: this.Scope.PointLeftTop.x,
-        y: this.Scope.PointLeftTop.y,
-      },
+      new Point(
+        this.Scope.PointLeftTop.x,
+        this.Scope.PointLeftTop.y,
+      ),
       this.texture,
     );
   }

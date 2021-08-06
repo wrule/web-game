@@ -1,3 +1,4 @@
+import { Point } from '../geometry/point';
 import { Rect } from '../geometry/rect';
 import { Snapshot } from '../snapshot/snapshot';
 
@@ -65,10 +66,10 @@ export abstract class Prop {
   public get OuterSnapshots() {
     console.log('2> ', this.MySnapshots[0].Scope.PointLeftTop);
     return this.InnerSnapshots.map((snapshot) => new Snapshot(
-      {
-        x: this.scope.Left + snapshot.Scope.Left,
-        y: this.scope.Top + snapshot.Scope.Top,
-      },
+      new Point(
+        this.scope.Left + snapshot.Scope.Left,
+        this.scope.Top + snapshot.Scope.Top,
+      ),
       snapshot.texture,
     ));
   }
@@ -80,30 +81,16 @@ export abstract class Prop {
     distance: number,
   ) {
     switch (direction) {
-      case EDirection.North: {
-        this.scope = new Rect(
-          { x: this.scope.PointLeftTop.x, y: this.scope.PointLeftTop.y - distance },
-          { x: this.scope.PointRightBottom.x, y: this.scope.PointRightBottom.y - distance },
-        )
-      } break;
       case EDirection.South: {
-        // console.log('>> ', this.scope.PointLeftTop);
         this.scope = new Rect(
-          { x: this.scope.PointLeftTop.x, y: this.scope.PointLeftTop.y + distance },
-          { x: this.scope.PointRightBottom.x, y: this.scope.PointRightBottom.y + distance },
-        )
-        // console.log('<< ', this.scope.PointLeftTop);
-      } break;
-      case EDirection.West: {
-        this.scope = new Rect(
-          { x: this.scope.PointLeftTop.x - distance, y: this.scope.PointLeftTop.y },
-          { x: this.scope.PointRightBottom.x - distance, y: this.scope.PointRightBottom.y },
-        )
-      } break;
-      case EDirection.East: {
-        this.scope = new Rect(
-          { x: this.scope.PointLeftTop.x + distance, y: this.scope.PointLeftTop.y },
-          { x: this.scope.PointRightBottom.x + distance, y: this.scope.PointRightBottom.y },
+          new Point(
+            this.scope.PointLeftTop.x,
+            this.scope.PointLeftTop.y + distance,
+          ),
+          new Point(
+            this.scope.PointRightBottom.x,
+            this.scope.PointRightBottom.y + distance,
+          ),
         )
       } break;
       default:

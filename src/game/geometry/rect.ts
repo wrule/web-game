@@ -1,9 +1,9 @@
-import { IPoint } from './point';
+import { Point } from './point';
 
 export class Rect {
   constructor(
-    point1: IPoint,
-    point2: IPoint,
+    point1: Point,
+    point2: Point,
   ) {
     this.left = point1.x;
     this.right = point2.x;
@@ -48,25 +48,19 @@ export class Rect {
     return this.bottom - this.top;
   }
 
-  public get PointLeftTop(): IPoint {
-    return {
-      x: this.left,
-      y: this.top,
-    }
+  public get PointLeftTop(): Point {
+    return new Point(this.left, this.top);
   }
 
-  public get PointRightBottom(): IPoint {
-    return {
-      x: this.right,
-      y: this.bottom,
-    };
+  public get PointRightBottom(): Point {
+    return new Point(this.right, this.bottom);
   }
 
-  public get PointCenter(): IPoint {
-    return {
-      x: this.left + this.Width / 2,
-      y: this.top + this.Height / 2,
-    };
+  public get PointCenter(): Point {
+    return new Point(
+      this.left + this.Width / 2,
+      this.top + this.Height / 2,
+    );
   }
 
   /**

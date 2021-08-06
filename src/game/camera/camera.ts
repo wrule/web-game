@@ -1,5 +1,5 @@
 import { I2D } from '../2d/2d';
-import { IPoint } from '../geometry/point';
+import { Point } from '../geometry/point';
 import { Prop } from '../prop/prop';
 import { Snapshot } from '../snapshot/snapshot';
 import { ELookAtType } from './lookAtType';
@@ -34,14 +34,14 @@ export class Camera {
 
   private lookAtType: ELookAtType = ELookAtType.LookAtPoint;
 
-  private lookPoint: IPoint = { x: 0, y: 0 };
+  private lookPoint = new Point(0, 0);
 
   /**
    * 把相机聚焦目标坐标点
    * @param point 目标坐标点
    */
   public LookAtPoint(
-    point: IPoint,
+    point: Point,
   ) {
     this.lookPoint.x = point.x;
     this.lookPoint.y = point.y;
@@ -64,7 +64,7 @@ export class Camera {
   /**
    * 当前相机聚焦的坐标点
    */
-  public get CurrentLookPoint(): IPoint {
+  public get CurrentLookPoint(): Point {
     switch (this.lookAtType) {
       case ELookAtType.LookAtProp:
         return this.lookProp.Scope.PointCenter;
@@ -99,11 +99,11 @@ export class Camera {
     return this.i2d;
   }
 
-  private transform(point: IPoint): IPoint {
-    return {
-      x: point.x - this.CurrentLookPoint.x + this.i2d.Width / 2,
-      y: point.y - this.CurrentLookPoint.y + this.i2d.Height / 2,
-    };
+  private transform(point: Point): Point {
+    return new Point(
+      point.x - this.CurrentLookPoint.x + this.i2d.Width / 2,
+      point.y - this.CurrentLookPoint.y + this.i2d.Height / 2,
+    );
   }
 
   private takeVideoTimer = - 1;

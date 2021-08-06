@@ -12,6 +12,7 @@ import { Rect } from '@/game/geometry/rect';
 import { TestMap } from '@/game/prop/testMap';
 import { EDirection } from '@/game/prop/prop';
 import { Npc } from '@/game/prop/npc/npc';
+import { Point } from '@/game/geometry/point';
 
 @Component
 export default class ViewHome extends Vue {
@@ -46,7 +47,7 @@ export default class ViewHome extends Vue {
     const lawn = new Texture(this.spriteImageBitmap, 0, 0, 32, 32);
     const bush = new Texture(this.spriteImageBitmap, 0, 32, 32, 32);
     const testMap = new TestMap(
-      { x: 0, y: 0 },
+      new Point(0, 0),
       { width: 38, height: 20, },
       lawn,
       bush,
@@ -70,13 +71,13 @@ export default class ViewHome extends Vue {
     }
 
     const actor = new Npc(
-      new Rect({ x: 0, y: 0 }, { x: 32, y: 48 }),
+      new Rect(new Point(0, 0), new Point(32, 48)),
       walkTexture[0][0],
     );
 
     testMap.Add(actor);
 
-    // camera.LookAtPoint({ x: 0, y: 0 });
+    // camera.LookAtPoint(new Point(0, 0));
     camera.LookAtProp(actor);
     console.log(camera.CurrentLookPoint);
 

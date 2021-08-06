@@ -13,6 +13,8 @@ import { TestMap } from '@/game/prop/testMap';
 import { EDirection } from '@/game/prop/prop';
 import { Npc } from '@/game/prop/npc/npc';
 import { Point } from '@/game/geometry/point';
+import { ENpcWalkDirection } from '@/game/prop/npc/npcWalkDirection';
+import { NpcWalkState } from '@/game/prop/npc/npcWalkState';
 
 @Component
 export default class ViewHome extends Vue {
@@ -70,9 +72,25 @@ export default class ViewHome extends Vue {
       }
     }
 
+    const textureMap = new Map<ENpcWalkDirection, Texture[]>([
+      ENpcWalkDirection.South,
+      ENpcWalkDirection.West,
+      ENpcWalkDirection.East,
+      ENpcWalkDirection.North,
+    ].map((direction, y) => [
+      direction,
+      [0, 1, 2, 3].map((x) => new Texture(
+        actorImageBitmap,
+        x * 32,
+        y * 48,
+        32,
+        48,
+      )),
+    ]));
+    const state = new NpcWalkState(textureMap);
     const actor = new Npc(
       new Rect(new Point(0, 0), new Point(32, 48)),
-      walkTexture[0][0],
+      state,
     );
 
     testMap.Add(actor);
@@ -83,9 +101,19 @@ export default class ViewHome extends Vue {
 
     camera.TakeVideo(testMap);
 
-    setInterval(() => {
-      actor.Scope.MoveRight(1);
-    }, 100);
+    // setInterval(() => {
+    //   actor.Walk(ENpcWalkDirection.South);
+    // }, 1000);
+
+    document.addEventListener('keydown', (e) => {
+      const key = e.key;
+      switch (key) {
+        case 'ArrowUp': actor.Walk(ENpcWalkDirection.North); break;
+        case 'ArrowDown': actor.Walk(ENpcWalkDirection.South); break;
+        case 'ArrowLeft': actor.Walk(ENpcWalkDirection.West); break;
+        case 'ArrowRight': actor.Walk(ENpcWalkDirection.East); break;
+      }
+    });
   }
 
   public render(): VNode {

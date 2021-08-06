@@ -161,6 +161,9 @@ export class Camera {
           fpsTimeSpan / this.fpsCounter - (1000 / this.idealFps)
         );
         this.currentInterval -= fpsTimeSpan / this.fpsCounter - (1000 / this.idealFps);
+        if (this.currentInterval < 1) {
+          this.currentInterval = 1;
+        }
         // this.currentInterval = fpsTimeSpan / this.fpsCounter - this.currentInterval;
         this.fpsCounter = 0;
         this.fpsStartTime = Number(new Date());

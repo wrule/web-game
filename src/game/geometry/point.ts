@@ -1,7 +1,7 @@
 import { Geometry } from './geometry';
 import { IOffset } from './offset';
 
-export class Point extends Geometry {
+export class Point extends Geometry<Point> {
   constructor(
     public x: number,
     public y: number,
@@ -14,7 +14,7 @@ export class Point extends Geometry {
     this.y += offset.offsetY;
   }
 
-  public Cast(offset?: IOffset) {
+  public Cast(offset?: IOffset): Point {
     const result = new Point(this.x, this.y);
     if (offset) {
       result.Move(offset);

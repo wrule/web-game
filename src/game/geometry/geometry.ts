@@ -1,6 +1,6 @@
 import { IOffset } from './offset';
 
-export abstract class Geometry {
+export abstract class Geometry<T> {
   abstract Move(offset: IOffset): void;
 
   public MoveTop(distance: number) {
@@ -17,5 +17,23 @@ export abstract class Geometry {
 
   public MoveRight(distance: number) {
     this.Move({ offsetX: distance, offsetY: 0 });
+  }
+
+  abstract Cast(offset?: IOffset): T;
+
+  public CastTop(distance: number) {
+    return this.Cast({ offsetX: 0, offsetY: -distance });
+  }
+
+  public CastDown(distance: number) {
+    return this.Cast({ offsetX: 0, offsetY: distance });
+  }
+
+  public CastLeft(distance: number) {
+    return this.Cast({ offsetX: -distance, offsetY: 0 });
+  }
+
+  public CastRight(distance: number) {
+    return this.Cast({ offsetX: distance, offsetY: 0 });
   }
 }

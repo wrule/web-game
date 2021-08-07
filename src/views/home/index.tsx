@@ -12,6 +12,9 @@ import { Npc } from '@/game/prop/npc/npc';
 import { Point } from '@/game/geometry/point';
 import { ENpcWalkDirection } from '@/game/prop/npc/npcWalkDirection';
 import { NpcWalkState } from '@/game/prop/npc/npcWalkState';
+import { LandBlock } from '@/game/prop/landBlock/landBlock';
+import { Snapshot } from '@/game/snapshot/snapshot';
+import { Land } from '@/game/prop/land/land';
 
 @Component
 export default class ViewHome extends Vue {
@@ -40,6 +43,26 @@ export default class ViewHome extends Vue {
     this.ctx = this.elCanvas.getContext('2d') as CanvasRenderingContext2D;
     this.spriteImageBitmap = await this.queryImageBitmap('.sprite');
     this.actorImageBitmap = await this.queryImageBitmap('.actor');
+
+    const camera = new Camera(
+      new Canvas2D(this.ctx, this.elCanvas.width, this.elCanvas.height)
+    );
+    const lawnLandBlock = new LandBlock(
+      new Rect(new Point(0, 0), new Point(32, 32)),
+      new Snapshot(new Point(0, 0), new Texture(this.spriteImageBitmap, 0, 0, 32, 32)),
+    );
+    const bushLandBlock = new LandBlock(
+      new Rect(new Point(32, 0), new Point(64, 32)),
+      new Snapshot(new Point(0, 0), new Texture(this.spriteImageBitmap, 0, 32, 32, 32)),
+    );
+    const land = new Land(
+      new Rect(new Point(0, 0), new Point(64, 32)),
+      [
+        [bushLandBlock, lawnLandBlock],
+      ],
+    );
+    camera.LookAtProp(land);
+    camera.TakeVideo(land, 30);
 
     // const lawn = new Texture(this.spriteImageBitmap, 0, 0, 32, 32);
     // const bush = new Texture(this.spriteImageBitmap, 0, 32, 32, 32);

@@ -13,13 +13,7 @@ export abstract class Prop {
   constructor(
     private renderScope: Rect,
     private name: string = '',
-    private children: Prop[] = [],
-    private parent?: Prop,
-  ) {
-    this.children.forEach((child) => {
-      child.SetParent(this);
-    });
-  }
+  ) { }
 
   public get RenderScope() {
     return this.renderScope;
@@ -29,16 +23,16 @@ export abstract class Prop {
     return this.name;
   }
 
-  public get Children() {
-    return this.children;
+  abstract Children: Prop[];
+
+  public Add(prop: Prop) {
+    this.Children.push(prop);
   }
+
+  private parent?: Prop;
 
   public get Parent() {
     return this.parent;
-  }
-
-  public Add(prop: Prop) {
-    this.children.push(prop);
   }
 
   public SetParent(prop: Prop | undefined) {
@@ -53,7 +47,7 @@ export abstract class Prop {
   public get InnerSnapshots(): Snapshot[] {
     const result: Snapshot[] = [];
     result.push(...this.MySnapshots);
-    this.children.forEach((child) => {
+    this.Children.forEach((child) => {
       result.push(...child.OuterSnapshots);
     });
     return result;

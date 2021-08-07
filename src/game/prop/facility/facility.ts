@@ -11,6 +11,10 @@ export class Facility extends Prop  {
     );
   }
 
+  public get FormalChildren() {
+    return [];
+  }
+
   public get MySnapshots() {
     return [];
   }

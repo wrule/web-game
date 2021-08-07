@@ -32,6 +32,10 @@ export class TestMap extends Prop {
     }
   }
 
+  public get FormalChildren() {
+    return [];
+  }
+
   private snapshots: Snapshot[] = [];
 
   public get MySnapshots() {

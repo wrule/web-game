@@ -19,6 +19,15 @@ export class Scene extends Prop  {
     );
   }
 
+  public get FormalChildren() {
+    const result: Prop[] = [];
+    result.push(this.land);
+    result.push(...this.buildings);
+    result.push(...this.facilities);
+    result.push(...this.npcs);
+    return result;
+  }
+
   public get Land() {
     return this.land;
   }

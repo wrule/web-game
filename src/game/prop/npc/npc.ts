@@ -41,4 +41,8 @@ export class Npc extends Prop {
       new Snapshot(new Point(0, 0), this.state.CurrentTexture),
     ];
   }
+
+  public get FormalChildren() {
+    return [];
+  }
 }

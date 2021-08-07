@@ -18,13 +18,15 @@ export class Land extends Prop {
   ) {
     super(
       renderScope,
-      name,
-      flattenLandBlocks(landBlocks),
     );
   }
 
   public get LandBlocks() {
     return this.landBlocks;
+  }
+
+  public get FormalChildren() {
+    return [];
   }
 
   public get MySnapshots() {

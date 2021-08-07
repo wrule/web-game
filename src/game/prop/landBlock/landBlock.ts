@@ -10,6 +10,10 @@ export class LandBlock extends Prop {
     super(renderScope);
   }
 
+  public get FormalChildren() {
+    return [];
+  }
+
   public get MySnapshots() {
     return [this.snapshot];
   }

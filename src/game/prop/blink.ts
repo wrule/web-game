@@ -14,6 +14,10 @@ export class Blink extends Prop {
     }, 1000);
   }
 
+  public get FormalChildren() {
+    return [];
+  }
+
   private flag = true;
 
   public get MySnapshots() {

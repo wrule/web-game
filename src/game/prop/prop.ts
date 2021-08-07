@@ -23,10 +23,20 @@ export abstract class Prop {
     return this.name;
   }
 
-  abstract Children: Prop[];
+  abstract FormalChildren: Prop[];
 
-  public Add(prop: Prop) {
-    this.Children.push(prop);
+  private freeChildren: Prop[] = [];
+
+  public get FreeChildren() {
+    return this.freeChildren;
+  }
+
+  public AddFreeChildren(prop: Prop) {
+    this.freeChildren.push(prop);
+  }
+
+  public get Children() {
+    return this.FormalChildren.concat(this.FreeChildren);
   }
 
   private parent?: Prop;

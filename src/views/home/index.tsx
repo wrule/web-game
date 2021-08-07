@@ -93,7 +93,7 @@ export default class ViewHome extends Vue {
       state,
     );
 
-    testMap.Add(actor);
+    testMap.AddFreeChildren(actor);
 
     // camera.LookAtPoint(new Point(0, 0));
     camera.LookAtProp(actor);

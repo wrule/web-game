@@ -11,6 +11,10 @@ export class Test extends Prop  {
     );
   }
 
+  public get FormalChildren() {
+    return [];
+  }
+
   public get MySnapshots() {
     return [];
   }

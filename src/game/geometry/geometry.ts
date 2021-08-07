@@ -1,7 +1,10 @@
 import { IOffset } from './offset';
+import { Point } from './point';
 
 export abstract class Geometry<T> {
   abstract Move(offset: IOffset): void;
+
+  abstract MoveTo(point: Point): void;
 
   public MoveUp(distance: number) {
     this.Move({ offsetX: 0, offsetY: -distance });

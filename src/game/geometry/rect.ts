@@ -31,6 +31,11 @@ export class Rect extends Geometry<Rect> {
     this.pointRightBottom.Move(offset);
   }
 
+  public MoveTo(point: Point) {
+    const offset = this.pointLeftTop.Offset(point);
+    this.Move(offset);
+  }
+
   public Cast(offset?: IOffset): Rect {
     return new Rect(
       this.pointLeftTop.Cast(offset),

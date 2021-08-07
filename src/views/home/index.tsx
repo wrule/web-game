@@ -52,13 +52,14 @@ export default class ViewHome extends Vue {
       new Snapshot(new Point(0, 0), new Texture(this.spriteImageBitmap, 0, 0, 32, 32)),
     );
     const bushLandBlock = new LandBlock(
-      new Rect(new Point(32, 0), new Point(64, 32)),
+      new Rect(new Point(0, 0), new Point(32, 32)),
       new Snapshot(new Point(0, 0), new Texture(this.spriteImageBitmap, 0, 32, 32, 32)),
     );
     const land = new Land(
       new Rect(new Point(0, 0), new Point(64, 32)),
+      32,
       [
-        [bushLandBlock, lawnLandBlock],
+        [bushLandBlock, lawnLandBlock, lawnLandBlock, lawnLandBlock],
       ],
     );
     camera.LookAtProp(land);

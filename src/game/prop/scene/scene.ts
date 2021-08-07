@@ -1,16 +1,38 @@
 import { Rect } from '@/game/geometry/rect';
+import { Building } from '../building/building';
+import { Facility } from '../facility/facility';
 import { Land } from '../land/land';
+import { Npc } from '../npc/npc';
 import { Prop } from '../prop';
 
  
 export class Scene extends Prop  {
   constructor(
     renderScope: Rect,
-    land: Land,
+    private land: Land,
+    private buildings: Building[],
+    private facilities: Facility[],
+    private npcs: Npc[],
   ) {
     super(
       renderScope,
     );
+  }
+
+  public get Land() {
+    return this.land;
+  }
+
+  public get Buildings() {
+    return this.buildings;
+  }
+
+  public get Facilities() {
+    return this.facilities;
+  }
+
+  public get Npcs() {
+    return this.npcs;
   }
 
   public get MySnapshots() {

@@ -2,13 +2,6 @@ import { Point } from '../geometry/point';
 import { Rect } from '../geometry/rect';
 import { Snapshot } from '../snapshot/snapshot';
 
-export enum EDirection {
-  North,
-  South,
-  West,
-  East,
-}
-
 export abstract class Prop {
   constructor(
     private renderScope: Rect,

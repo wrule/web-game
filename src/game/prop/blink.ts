@@ -4,11 +4,11 @@ import { Prop } from './prop';
 
 export class Blink extends Prop {
   constructor(
-    scope: Rect,
+    renderScope: Rect,
     private snapshot1: Snapshot,
     private snapshot2: Snapshot,
   ) {
-    super(scope);
+    super(renderScope);
     setInterval(() => {
       this.flag = !this.flag;
     }, 1000);

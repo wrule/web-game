@@ -13,7 +13,7 @@ export class Snapshot {
 
   public readonly point = new Point(0, 0);
 
-  public get Scope() {
+  public get RenderScope() {
     return new Rect(
       this.point,
       new Point(

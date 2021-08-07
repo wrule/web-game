@@ -8,25 +8,25 @@ import { NpcWalkState } from './npcWalkState';
 
 export class Npc extends Prop {
   constructor(
-    scope: Rect,
+    renderScope: Rect,
     private state: NpcWalkState,
   ) {
-    super(scope);
+    super(renderScope);
   }
 
   public Walk(direction: ENpcWalkDirection) {
     switch (direction) {
       case ENpcWalkDirection.North: {
-        this.Scope.MoveUp(4);
+        this.RenderScope.MoveUp(4);
       } break;
       case ENpcWalkDirection.South: {
-        this.Scope.MoveDown(4);
+        this.RenderScope.MoveDown(4);
       } break;
       case ENpcWalkDirection.West: {
-        this.Scope.MoveLeft(4);
+        this.RenderScope.MoveLeft(4);
       } break;
       case ENpcWalkDirection.East: {
-        this.Scope.MoveRight(4);
+        this.RenderScope.MoveRight(4);
       } break;
       default:
         throw new Error('');

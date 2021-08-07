@@ -11,7 +11,7 @@ export enum EDirection {
 
 export abstract class Prop {
   constructor(
-    private scope: Rect,
+    private renderScope: Rect,
     private name: string = '',
     private children: Prop[] = [],
     private parent?: Prop,
@@ -21,8 +21,8 @@ export abstract class Prop {
     });
   }
 
-  public get Scope() {
-    return this.scope;
+  public get RenderScope() {
+    return this.renderScope;
   }
 
   public get Name() {
@@ -66,8 +66,8 @@ export abstract class Prop {
   public get OuterSnapshots() {
     return this.InnerSnapshots.map((snapshot) => new Snapshot(
       new Point(
-        this.scope.Left + snapshot.Scope.Left,
-        this.scope.Top + snapshot.Scope.Top,
+        this.renderScope.Left + snapshot.RenderScope.Left,
+        this.renderScope.Top + snapshot.RenderScope.Top,
       ),
       snapshot.texture,
     ));

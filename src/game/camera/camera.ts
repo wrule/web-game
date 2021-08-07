@@ -83,7 +83,7 @@ export class Camera {
   public get CurrentLookPoint(): Point {
     switch (this.lookAtType) {
       case ELookAtType.LookAtProp:
-        return this.lookProp.Scope.PointCenter;
+        return this.lookProp.RenderScope.PointCenter;
       case ELookAtType.LookAtPoint:
         return this.lookPoint;
       default:
@@ -108,7 +108,7 @@ export class Camera {
     this.i2d.Clear();
     this.i2d.DrawSnapshot(
       this.currentProp.OuterSnapshots.map((snapshot) => new Snapshot(
-        this.transform(snapshot.Scope.PointLeftTop),
+        this.transform(snapshot.RenderScope.PointLeftTop),
         snapshot.texture,
       ))
     );

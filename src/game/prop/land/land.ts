@@ -1,16 +1,33 @@
 import { Rect } from '@/game/geometry/rect';
-import { Snapshot } from '@/game/snapshot/snapshot';
+import { LandBlock } from '../landBlock/landBlock';
 import { Prop } from '../prop';
+
+export function flattenLandBlocks(landBlocks: LandBlock[][]) {
+  const result: LandBlock[] = [];
+  landBlocks.forEach((blocks) => {
+    result.push(...blocks);
+  });
+  return  result;
+}
 
 export class Land extends Prop {
   constructor(
     renderScope: Rect,
-    private snapshot: Snapshot,
+    private landBlocks: LandBlock[][],
+    name?: string,
   ) {
-    super(renderScope);
+    super(
+      renderScope,
+      name,
+      flattenLandBlocks(landBlocks),
+    );
+  }
+
+  public get LandBlocks() {
+    return this.landBlocks;
   }
 
   public get MySnapshots() {
-    return [this.snapshot];
+    return [];
   }
 }

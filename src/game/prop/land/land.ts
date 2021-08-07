@@ -7,26 +7,26 @@ export function flattenLandBlocks(landBlocks: LandBlock[][]) {
   landBlocks.forEach((blocks) => {
     result.push(...blocks);
   });
-  return  result;
+  return result;
 }
 
 export class Land extends Prop {
   constructor(
     renderScope: Rect,
     private landBlocks: LandBlock[][],
-    name?: string,
   ) {
-    super(
-      renderScope,
-    );
+    super(renderScope);
+    this.formalChildren = flattenLandBlocks(this.landBlocks);
   }
 
   public get LandBlocks() {
     return this.landBlocks;
   }
 
+  private formalChildren: Prop[] = [];
+
   public get FormalChildren() {
-    return [];
+    return this.formalChildren;
   }
 
   public get MySnapshots() {

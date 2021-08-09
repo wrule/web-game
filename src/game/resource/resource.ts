@@ -1,15 +1,14 @@
-import UUID from 'uuid';
+import { GameObject } from "../gameObject";
+import { IResourceFactory } from "./resourceFactory";
+import { IResourceModel } from "./resourceModel";
 
-export abstract class Resource {
-  constructor(uuid?: string) {
-    this.uuid = uuid || UUID.v4();
-  }
-
-  private uuid: string = '';
-
-  public get UUID() {
-    return this.uuid;
-  }
-
+export
+abstract class
+Resource<
+  T,
+  TModel extends IResourceModel,
+  TFactory extends IResourceFactory<T, TModel>,
+>
+extends GameObject<T, TModel, TFactory> {
   abstract ToBase64(): string;
 }

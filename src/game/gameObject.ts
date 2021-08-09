@@ -31,7 +31,7 @@ export abstract class GameObject<
   /**
    * 深度克隆对象
    */
-  public Clone() {
+  public Clone(): T {
     return this.GetFactory().FromModel(this.ToModel());
   }
 }

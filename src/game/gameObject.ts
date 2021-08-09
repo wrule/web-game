@@ -1,11 +1,22 @@
+import { IGameObjectFactory } from './gameObjectFactory';
 
-export interface IGameObject<T, TModel> {
+export abstract class GameObject<
+  T,
+  TModel,
+  TFactory extends IGameObjectFactory<T, TModel>,
+> {
   /**
    * 获取对象的数据模型
    */
-  ToModel(): TModel;
+  abstract ToModel(): TModel;
+  /**
+   * 获取对象的工厂对象
+   */
+  abstract GetFactory(): TFactory;
   /**
    * 深度克隆对象
    */
-  Clone(): T;
+  public Clone() {
+    return this.GetFactory().FromModel(this.ToModel());
+  }
 }

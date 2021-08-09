@@ -1,4 +1,4 @@
 
-export interface IGameObjectFactory<T, IModel> {
-  FromModel(model: T): T;
+export interface IGameObjectFactory<T, TModel> {
+  FromModel(model: TModel): T;
 }

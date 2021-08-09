@@ -1,10 +1,25 @@
 import { IGameObjectFactory } from './gameObjectFactory';
+import UUID from 'uuid';
 
 export abstract class GameObject<
   T,
   TModel,
   TFactory extends IGameObjectFactory<T, TModel>,
 > {
+  constructor(
+    uuid?: string,
+  ) {
+    this.uuid = uuid || UUID.v4();
+  }
+
+  private uuid: string;
+
+  /**
+   * 对象的唯一UUID
+   */
+  public get UUID() {
+    return this.uuid;
+  }
   /**
    * 获取对象的数据模型
    */

@@ -1,4 +1,5 @@
 
-export interface IGameObjectModel {
+export
+interface IGameObjectModel {
   uuid: string;
 }

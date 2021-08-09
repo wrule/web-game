@@ -3,8 +3,7 @@ import { IResourceFactory } from "./resourceFactory";
 import { IResourceModel } from "./resourceModel";
 
 export
-abstract class
-Resource<
+abstract class Resource<
   T,
   TModel extends IResourceModel,
   TFactory extends IResourceFactory<T, TModel>,

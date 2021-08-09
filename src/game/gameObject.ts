@@ -1,9 +1,11 @@
 import { IGameObjectFactory } from './gameObjectFactory';
 import UUID from 'uuid';
+import { IGameObjectModel } from './gameObjectModel';
 
-export abstract class GameObject<
+export
+abstract class GameObject<
   T,
-  TModel,
+  TModel extends IGameObjectModel,
   TFactory extends IGameObjectFactory<T, TModel>,
 > {
   constructor(

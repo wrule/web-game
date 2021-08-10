@@ -1,6 +1,14 @@
 import { ImageResource } from '../imageResource';
+import { WebImageBitmapImageResourceFactory } from './webImageBitmapImageResourceFactory';
+import { IWebImageBitmapImageResourceModel } from './webImageBitmapImageResourceModel';
 
-export class WebImageBitmapImageResource extends ImageResource {
+export
+class WebImageBitmapImageResource
+extends ImageResource<
+  WebImageBitmapImageResource,
+  IWebImageBitmapImageResourceModel,
+  WebImageBitmapImageResourceFactory
+> {
   constructor(
     private imageBitmap: ImageBitmap,
     uuid?: string,
@@ -22,5 +30,13 @@ export class WebImageBitmapImageResource extends ImageResource {
 
   public ToBase64() {
     return '';
+  }
+
+  public ToModel(): IWebImageBitmapImageResourceModel {
+    return { } as any;
+  }
+
+  public GetFactory() {
+    return new WebImageBitmapImageResourceFactory();
   }
 }

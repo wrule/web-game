@@ -1,6 +1,6 @@
-import { IGameObjectFactory } from './gameObjectFactory';
 import UUID from 'uuid';
-import { IGameObjectModel } from './gameObjectModel';
+import { IGameObjectModel } from './model';
+import { IGameObjectFactory } from './factory';
 
 export
 abstract class GameObject<
@@ -8,6 +8,10 @@ abstract class GameObject<
   TModel extends IGameObjectModel,
   TFactory extends IGameObjectFactory<T, TModel>,
 > {
+  /**
+   * 构造函数
+   * @param uuid UUID，如果不传则自动生成新的UUID
+   */
   constructor(
     uuid?: string,
   ) {
@@ -17,7 +21,7 @@ abstract class GameObject<
   private uuid: string;
 
   /**
-   * 对象的唯一UUID
+   * 获取对象的UUID
    */
   public get UUID() {
     return this.uuid;

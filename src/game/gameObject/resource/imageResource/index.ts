@@ -12,4 +12,7 @@ extends Resource<
   T,
   TModel,
   TFactory
-> { }
+> {
+  abstract Width: number;
+  abstract Height: number;
+}

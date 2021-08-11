@@ -8,6 +8,4 @@ abstract class Resource<
   TModel extends IResourceModel,
   TFactory extends IResourceFactory<T, TModel>,
 >
-extends GameObject<T, TModel, TFactory> {
-  abstract ToBase64(): string;
-}
+extends GameObject<T, TModel, TFactory> { }

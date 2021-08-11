@@ -3,7 +3,7 @@ import { IImageResourceFactory } from './factory';
 import { IImageResourceModel } from './model';
 
 export
-abstract class IImageResource<
+abstract class ImageResource<
   T,
   TModel extends IImageResourceModel,
   TFactory extends IImageResourceFactory<T, TModel>

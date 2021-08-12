@@ -1,4 +1,4 @@
-import UUID from 'uuid';
+import * as UUID from 'uuid';
 import { IGameObjectFactory } from './factory';
 import { IGameObjectModel } from './model';
 

@@ -8,4 +8,8 @@ abstract class Resource<
   TModel extends IResourceModel,
   TFactory extends IResourceFactory<T, TModel>,
 >
-extends GameObject<T, TModel, TFactory> { }
+extends GameObject<
+  T,
+  TModel,
+  TFactory
+> { }

@@ -1,4 +1,4 @@
-import { IResourceFactory } from '@/game/gameObject/resource/factory';
+import { IResourceFactory } from '../factory';
 import { IImageResourceModel } from './model';
 
 export

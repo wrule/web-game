@@ -32,6 +32,27 @@ extends ImageResource<
   }
 
   public ToModel(): IWebImageBitmapImageResourceModel {
-    return { } as any;
+    const htmlCanvasElement = document.createElement('canvas');
+    htmlCanvasElement.width = this.Width;
+    htmlCanvasElement.height = this.Height;
+    const ctx = htmlCanvasElement.getContext('2d');
+    if (ctx !== null) {
+      ctx.drawImage(
+        this.imageBitmap,
+        0,
+        0,
+        this.Width,
+        this.Height,
+        0,
+        0,
+        this.Width,
+        this.Height,
+      );
+      return {
+        uuid: this.UUID,
+        base64: htmlCanvasElement.toDataURL(),
+      };
+    }
+    throw new Error('');
   }
 }
